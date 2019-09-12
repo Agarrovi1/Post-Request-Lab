@@ -25,6 +25,23 @@ struct ProjectAPIClient {
             }
         }
     }
+    func getClientWrapperInfo(completionHandler: @escaping (Result<[Project], AppError>) -> Void) {
+        NetworkHelper.manager.performDataTask(withUrl: airtableClientURL, andMethod: .get) { result in
+            switch result {
+            case let .failure(error):
+                completionHandler(.failure(error))
+                return
+            case let .success(data):
+                do {
+                    let projects = try Project.getProjects(from: data)
+                    completionHandler(.success(projects))
+                }
+                catch {
+                    completionHandler(.failure(.couldNotParseJSON(rawError: error)))
+                }
+            }
+        }
+    }
     
     func post(_ project: Project, completionHandler: @escaping (Result<Data, AppError>) -> Void) {
         let projectWrapper = ProjectWrapper(project: project)
@@ -49,6 +66,12 @@ struct ProjectAPIClient {
     
     private var airtableURL: URL {
         guard let url = URL(string: "https://api.airtable.com/v0/" + Secrets.AirtableProject + "/Design%20projects?typecast=true&&api_key=" + Secrets.AirtableAPIKey) else {
+            fatalError("Error: Invalid URL")
+        }
+        return url
+    }
+    private var airtableClientURL: URL {
+        guard let url = URL(string: "https://api.airtable.com/v0/" + Secrets.AirtableProject + "/Design%20projects?fields%5B%5D=Client&api_key=\(Secrets.AirtableAPIKey)") else {
             fatalError("Error: Invalid URL")
         }
         return url
