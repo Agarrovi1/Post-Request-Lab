@@ -25,7 +25,9 @@ struct ProjectAPIClient {
             }
         }
     }
-    func getClientWrapperInfo(completionHandler: @escaping (Result<[Project], AppError>) -> Void) {
+    
+    
+    func getClientWrapperInfo(completionHandler: @escaping (Result<ClientWrapper, AppError>) -> Void) {
         NetworkHelper.manager.performDataTask(withUrl: airtableClientURL, andMethod: .get) { result in
             switch result {
             case let .failure(error):
@@ -33,8 +35,26 @@ struct ProjectAPIClient {
                 return
             case let .success(data):
                 do {
-                    let projects = try Project.getProjects(from: data)
-                    completionHandler(.success(projects))
+                    let clientWrap = try ClientWrapper.getClientIds(from: data)
+                    completionHandler(.success(clientWrap))
+                }
+                catch {
+                    completionHandler(.failure(.couldNotParseJSON(rawError: error)))
+                }
+            }
+        }
+    }
+    func getClientInfo(id: String,completionHandler: @escaping (Result<Client, AppError>) -> Void) {
+        let newUrl = getClientSearch(by: id)
+        NetworkHelper.manager.performDataTask(withUrl: newUrl, andMethod: .get) { result in
+            switch result {
+            case let .failure(error):
+                completionHandler(.failure(error))
+                return
+            case let .success(data):
+                do {
+                    let client = try Client.getClients(from: data)
+                    completionHandler(.success(client))
                 }
                 catch {
                     completionHandler(.failure(.couldNotParseJSON(rawError: error)))
@@ -74,6 +94,10 @@ struct ProjectAPIClient {
         guard let url = URL(string: "https://api.airtable.com/v0/" + Secrets.AirtableProject + "/Design%20projects?fields%5B%5D=Client&api_key=\(Secrets.AirtableAPIKey)") else {
             fatalError("Error: Invalid URL")
         }
+        return url
+    }
+    func getClientSearch(by id: String) -> URL {
+        guard let url = URL(string: "https://api.airtable.com/v0/" + Secrets.AirtableProject + "/Design%20projects/\(id)?" + "api_key=" + Secrets.AirtableAPIKey) else {fatalError("Error: Invalid URL")}
         return url
     }
     

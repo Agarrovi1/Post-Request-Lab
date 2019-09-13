@@ -10,7 +10,9 @@
 		4DAFFB37232AD5E600CC3714 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFFB36232AD5E600CC3714 /* Secrets.swift */; };
 		4DAFFB39232AE00800CC3714 /* ClientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFFB38232AE00800CC3714 /* ClientViewController.swift */; };
 		4DAFFB3B232AE1E100CC3714 /* ClientWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFFB3A232AE1E100CC3714 /* ClientWrapper.swift */; };
-		4DAFFB3D232AE92700CC3714 /* Clients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFFB3C232AE92700CC3714 /* Clients.swift */; };
+		4DAFFB3D232AE92700CC3714 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFFB3C232AE92700CC3714 /* Client.swift */; };
+		4DAFFB40232B0B6B00CC3714 /* ClientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFFB3F232B0B6B00CC3714 /* ClientTableViewCell.swift */; };
+		4DAFFB42232B130A00CC3714 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAFFB41232B130A00CC3714 /* ImageHelper.swift */; };
 		CD01CDB42326B70F002D0255 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD01CDB32326B70F002D0255 /* AppDelegate.swift */; };
 		CD01CDB62326B70F002D0255 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD01CDB52326B70F002D0255 /* ProjectsViewController.swift */; };
 		CD01CDB92326B70F002D0255 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD01CDB72326B70F002D0255 /* Main.storyboard */; };
@@ -41,7 +43,9 @@
 		4DAFFB36232AD5E600CC3714 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		4DAFFB38232AE00800CC3714 /* ClientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewController.swift; sourceTree = "<group>"; };
 		4DAFFB3A232AE1E100CC3714 /* ClientWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientWrapper.swift; sourceTree = "<group>"; };
-		4DAFFB3C232AE92700CC3714 /* Clients.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clients.swift; sourceTree = "<group>"; };
+		4DAFFB3C232AE92700CC3714 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		4DAFFB3F232B0B6B00CC3714 /* ClientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientTableViewCell.swift; sourceTree = "<group>"; };
+		4DAFFB41232B130A00CC3714 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		CD01CDB02326B70F002D0255 /* PostRequestsWithAirtable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PostRequestsWithAirtable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD01CDB32326B70F002D0255 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD01CDB52326B70F002D0255 /* ProjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4DAFFB3E232B0B4A00CC3714 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4DAFFB3F232B0B6B00CC3714 /* ClientTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CD01CDA72326B70F002D0255 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +114,7 @@
 		CD01CDB22326B70F002D0255 /* PostRequestsWithAirtable */ = {
 			isa = PBXGroup;
 			children = (
+				4DAFFB3E232B0B4A00CC3714 /* Views */,
 				CD01CDD92326B9A0002D0255 /* Supporting Files */,
 				CDEB5DF42326C5EA00DE505F /* Networking */,
 				CD01CDDB2326BA0A002D0255 /* View Controllers */,
@@ -139,7 +152,8 @@
 				CD01CDD52326B84A002D0255 /* ProjectWrapper.swift */,
 				CD01CDD72326B8C5002D0255 /* Project.swift */,
 				4DAFFB3A232AE1E100CC3714 /* ClientWrapper.swift */,
-				4DAFFB3C232AE92700CC3714 /* Clients.swift */,
+				4DAFFB3C232AE92700CC3714 /* Client.swift */,
+				4DAFFB41232B130A00CC3714 /* ImageHelper.swift */,
 			);
 			path = "Airtable Model Structs";
 			sourceTree = "<group>";
@@ -271,11 +285,13 @@
 				4DAFFB37232AD5E600CC3714 /* Secrets.swift in Sources */,
 				CDEB5DFF2326DCB900DE505F /* CreateProjectViewController.swift in Sources */,
 				CDEB5DF82326C67200DE505F /* ProjectAPIClient.swift in Sources */,
-				4DAFFB3D232AE92700CC3714 /* Clients.swift in Sources */,
+				4DAFFB3D232AE92700CC3714 /* Client.swift in Sources */,
 				CD01CDB62326B70F002D0255 /* ProjectsViewController.swift in Sources */,
 				4DAFFB3B232AE1E100CC3714 /* ClientWrapper.swift in Sources */,
 				CD01CDB42326B70F002D0255 /* AppDelegate.swift in Sources */,
 				CD01CDD62326B84A002D0255 /* ProjectWrapper.swift in Sources */,
+				4DAFFB40232B0B6B00CC3714 /* ClientTableViewCell.swift in Sources */,
+				4DAFFB42232B130A00CC3714 /* ImageHelper.swift in Sources */,
 				CDEB5DF32326C5E100DE505F /* NetworkHelper.swift in Sources */,
 				CD01CDD42326B819002D0255 /* AirtableResponse.swift in Sources */,
 				CDEB5DF62326C62200DE505F /* AppError.swift in Sources */,

@@ -8,7 +8,16 @@
 
 import Foundation
 struct ClientWrapper: Codable {
+    init() {
+        records = [RecordWrapper(fields: Fields(client: nil))]
+    }
     let records: [RecordWrapper]
+    static func getClientIds(from jsonData: Data) throws -> ClientWrapper {
+        let response = try JSONDecoder().decode(ClientWrapper.self, from: jsonData)
+        return response
+    }
+    
+    
     
 }
 
@@ -17,18 +26,18 @@ struct RecordWrapper:Codable {
 }
 
 struct Fields: Codable {
-    let client: [String?]
+    let client: [String]?
     private enum CodingKeys: String, CodingKey {
         case client = "Client"
     }
 }
 
-func giveAllClients(arr: [RecordWrapper]) -> [String] {
+func giveAllClients(wrapper: ClientWrapper) -> [String] {
     var clients = [String]()
-    for a in arr {
-        for b in a.fields.client {
-            if let unwrap = b {
-            clients.append(unwrap)
+    for a in wrapper.records {
+        if let clientArr = a.fields.client {
+            for b in clientArr {
+                clients.append(b)
             }
         }
     }

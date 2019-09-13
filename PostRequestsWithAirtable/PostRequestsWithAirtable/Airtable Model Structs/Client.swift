@@ -9,6 +9,13 @@
 import Foundation
 struct Client: Codable {
     let fields: ClientFieldWrapper
+    static func getClients(from jsonData: Data) throws -> Client {
+        let response = try JSONDecoder().decode(Client.self, from: jsonData)
+        return response
+    }
+    init() {
+        fields = ClientFieldWrapper(about: "", name: "", logo: nil)
+    }
 }
 
 struct ClientFieldWrapper: Codable {
@@ -16,14 +23,21 @@ struct ClientFieldWrapper: Codable {
     let name: String
     let logo: [LogoWrapper]?
     
+    private enum CodingKeys: String, CodingKey {
+        case about = "About"
+        case name = "Name"
+        case logo = "Logo"
+    }
+    
     func getLargeImageUrl() -> String {
         if let logo = logo {
-            return logo[0].thumbnails.large.url
+            return logo[0].url
         }
         return ""
     }
 }
 struct LogoWrapper: Codable {
+    let url: String
     let thumbnails: Thumbnails
 }
 struct Thumbnails: Codable {
